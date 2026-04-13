@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Калькулятор зарплаты для Кыргызстана — расчёт налогов, взносов и чистой зарплаты">
+  <title>Калькулятор зарплаты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>💰 Калькулятор зарплаты</h1>
+      <p>Расчёт налогов и взносов — Кыргызская Республика</p>
+    </div>
+
+    <!-- Input Card -->
+    <div class="card">
+      <div class="card-title">Параметры расчёта</div>
+
+      <!-- Radio toggle: Gross / Net -->
+      <div class="radio-toggle" id="calcModeToggle">
+        <label class="radio-toggle__option">
+          <input type="radio" name="calcMode" value="gross" checked>
+          <span>Гросс зарплата</span>
+        </label>
+        <label class="radio-toggle__option">
+          <input type="radio" name="calcMode" value="netto">
+          <span>Чистая на руки</span>
+        </label>
+      </div>
+
+      <form id="salaryForm" class="form-grid" autocomplete="off">
+
+        <!-- Гросс зарплата (visible in gross mode) -->
+        <div class="form-group" id="grossGroup">
+          <label for="gross">
+            Гросс зарплата (сом)
+            <span class="info-icon" data-tip="Сумма до вычета налогов и взносов">?</span>
+          </label>
+          <input type="number" id="gross" placeholder="100 000" min="0" step="100">
+        </div>
+
+        <!-- На руки (visible in netto mode) -->
+        <div class="form-group hidden" id="chistGroup">
+          <label for="chist">
+            На руки работника (сом)
+            <span class="info-icon" data-tip="Желаемая сумма после вычета на руки">?</span>
+          </label>
+          <input type="number" id="chist" placeholder="100 000" min="0" step="100">
+        </div>
+
+        <!-- Тип работника -->
+        <div class="form-group">
+          <label for="workerType">Тип работника</label>
+          <select id="workerType">
+            <option value="regular">Обычный работник</option>
+            <option value="pensioner">Пенсионер</option>
+            <option value="foreign">Иностранный работник</option>
+          </select>
+        </div>
+
+        <!-- Бонусы -->
+        <div class="form-group">
+          <label for="bonus">
+            Бонусы / премии (сом)
+            <span class="info-icon" data-tip="Облагаются так же, как основная зарплата">?</span>
+          </label>
+          <input type="number" id="bonus" placeholder="0" min="0" step="100" value="0">
+        </div>
+
+        <!-- Кнопка -->
+        <div class="form-group btn-group">
+          <button type="submit" class="btn" id="calcBtn">Рассчитать</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Results (hidden until calculated) -->
+    <div id="results" style="display: none;"></div>
+  </div>
+  <script src="main.js"></script>
+  <script src="gross.js"></script>
+  <script src="chist.js"></script>
+</body>
+
+</html>
