@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор зарплаты Кыргызстан</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Cacculator</h1>
+            <p>Ваш персональный помощник в расчетах заработной платы и налоговой нагрузки в Кыргызстане.</p>
+            <div class="hero-image-container">
+                <img src="#" alt="Схема распределения зарплаты" id="hero-image" onerror="this.style.display='none'">
+            </div>
+        </header>
+
+        <main class="calculator-grid">
+            <section class="panel input-panel">
+                <h2>Зарплата и детали</h2>
+
+                <div class="input-group">
+                    <label for="gross-salary">Оклад (сом, Гросс) <span class="tooltip"
+                            title="Зарплата до вычета налогов">ⓘ</span></label>
+                    <input type="number" id="gross-salary" value="50000" min="0" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="bonus">премиальные (сом) <span class="tooltip"
+                            title="Дополнительный налогооблагаемый доход">ⓘ</span></label>
+                    <input type="number" id="bonus" value="0" min="0" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="employee-type">Вид работника</label>
+                    <select id="employee-type">
+                        <option value="standard">Штатный сотрудник</option>
+                        <option value="pensioner">Пенсионер</option>
+                        <option value="foreign">Иностранный гражданин</option>
+                        <option value="htp">ПВТ (Парк Высоких Технологий)</option>
+                    </select>
+                </div>
+
+                <div class="divider"></div>
+
+                <h2>Вычеты (Ручной ввод) <span class="tooltip"
+                        title="Измените эти ползунки или поля для мгновенного обратного расчета оклада">ⓘ</span>
+                </h2>
+
+                <div class="deduction-group">
+                    <div class="deduction-header">
+                        <label for="deduction-pn">Подоходный налог (ПН)</label>
+                        <div class="deduction-value-group">
+                            <input type="number" id="deduction-pn" class="editable-deduction" min="0" step="100">
+                            <span class="currency">сом</span>
+                        </div>
+                    </div>
+                    <input type="range" id="slider-pn" min="0" max="100000" step="100" class="slider">
+                </div>
+
+                <div class="deduction-group">
+                    <div class="deduction-header">
+                        <label for="deduction-pf">Пенсионный фонд (ПФ 10%)</label>
+                        <div class="deduction-value-group">
+                            <input type="number" id="deduction-pf" class="editable-deduction" min="0" step="100">
+                            <span class="currency">сом</span>
+                        </div>
+                    </div>
+                    <input type="range" id="slider-pf" min="0" max="100000" step="100" class="slider">
+                </div>
+
+                <div class="deduction-group">
+                    <div class="deduction-header">
+                        <label for="deduction-gnfp">Гос. накопительный фонд (ГНПФ 2%)</label>
+                        <div class="deduction-value-group">
+                            <input type="number" id="deduction-gnfp" class="editable-deduction" min="0" step="100">
+                            <span class="currency">сом</span>
+                        </div>
+                    </div>
+                    <input type="range" id="slider-gnfp" min="0" max="100000" step="100" class="slider">
+                </div>
+            </section>
+
+            <section class="panel output-panel">
+                <h2>Результаты</h2>
+
+                <div class="summary-cards">
+                    <div class="card net-card">
+                        <h3>На руки</h3>
+                        <div class="amount highlight-green" id="net-salary">0</div>
+                        <div class="subtitle">Зарплата к получению</div>
+                    </div>
+                    <div class="card deductions-card">
+                        <h3>Удержания</h3>
+                        <div class="amount highlight-red" id="total-deductions">0</div>
+                        <div class="subtitle">Со стороны сотрудника</div>
+                    </div>
+                    <div class="card fot-card">
+                        <h3>Общие затраты (ФОТ)</h3>
+                        <div class="amount highlight-blue" id="total-fot">0</div>
+                        <div class="subtitle">Общая стоимость для работодателя</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="salaryChart"></canvas>
+                </div>
+
+                <div class="details-table-container">
+                    <table class="details-table">
+                        <thead>
+                            <tr>
+                                <th>Компонент</th>
+                                <th>Ставка</th>
+                                <th>Сумма (сом)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
